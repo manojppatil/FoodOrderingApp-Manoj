@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/orderno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_near_me_24"
+            android:drawablePadding="10dp"
+            android:padding="5dp"
+            android:text="Order:1"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tableno"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/ic_baseline_table_chart_24"
+            android:drawablePadding="10dp"
+            android:padding="5dp"
+            android:text="Table No. 1"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/ordertotal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_done_24"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/buttongreen"
+            android:padding="5dp"
+            android:text="Order Total: "
+            android:textColor="@color/buttongreen"
+            android:textSize="19dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

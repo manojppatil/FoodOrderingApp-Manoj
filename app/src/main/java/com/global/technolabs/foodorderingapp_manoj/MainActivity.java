@@ -116,11 +116,11 @@ public class MainActivity extends AppCompatActivity implements TableAdapter.OnTa
         }).show();
     }
 
-    public void goto_ordersummary(View view) {
-        Intent intent = new Intent(MainActivity.this, OrderSummary.class);
-        startActivity(intent);
-        finish();
-    }
+//    public void goto_ordersummary(View view) {
+//        Intent intent = new Intent(MainActivity.this, OrderSummary.class);
+//        startActivity(intent);
+//        finish();
+//    }
 
 
     private static class RetreiveTask extends AsyncTask<Void, Void, List<Table>> {

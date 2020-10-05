@@ -25,6 +25,7 @@ import com.global.technolabs.foodorderingapp_manoj.fooddb.OrderItem;
 import com.global.technolabs.foodorderingapp_manoj.fooddb.Table;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,6 +43,7 @@ public class MenulistActivity extends AppCompatActivity implements MenuAdapter.O
     private Table table;
     String table_id;
     List<Order> orderList;
+    List<OrderItem> orderItemList;
     Order order;
     OrderDao orderDao;
 
@@ -61,7 +63,9 @@ public class MenulistActivity extends AppCompatActivity implements MenuAdapter.O
         menu_recycler = findViewById(R.id.menu_recycler);
         menu_recycler.setLayoutManager(new LinearLayoutManager(MenulistActivity.this));
         menus = new ArrayList<>();
-        menuAdapter = new MenuAdapter(menus, MenulistActivity.this, table_id);
+        orderList = new ArrayList<>();
+        orderItemList = new ArrayList<>();
+        menuAdapter = new MenuAdapter(menus, MenulistActivity.this);
         menu_recycler.setAdapter(menuAdapter);
 
         fab_submit = findViewById(R.id.submit_order);
@@ -105,8 +109,16 @@ public class MenulistActivity extends AppCompatActivity implements MenuAdapter.O
     }
 
     private void submit_order() {
-//        order = new Order(orderList);
-        new InsertTask(MenulistActivity.this, (Order) orderList).execute();
+//        order = new Order(orderItemList);
+//        new InsertTask(MenulistActivity.this, (Order) orderList).execute();
+
+        Intent intent = new Intent(MenulistActivity.this, OrderSummary.class);
+        Bundle args = new Bundle();
+        args.putSerializable("ORDERLIST",(Serializable)orderItemList);
+        intent.putExtra("BUNDLE",args);
+        intent.putExtra("table_id",table_id);
+        startActivity(intent);
+
     }
 
     private void displayList() {
@@ -116,29 +128,14 @@ public class MenulistActivity extends AppCompatActivity implements MenuAdapter.O
 
     @Override
     public void onMenuClick(final int pos) {
-        new AlertDialog.Builder(MenulistActivity.this)
-                .setItems(new String[]{"Update", "Delete"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i) {
-                            case 0:
-                                MenulistActivity.this.pos = pos;
-                                startActivityForResult(new Intent(MenulistActivity.this, AddMenuActivity.class)
-                                                .putExtra("menu", menus.get(pos))
-                                        , 100);
-                                break;
-                            case 1:
-                                foodDatabase.getMenuDao().deleteMenu(menus.get(pos));
-                                menus.remove(pos);
-                        }
 
-                    }
-                }).show();
     }
 
     @Override
-    public void push(ArrayList<OrderItem> orderItemList) {
-        orderList = (List<Order>) Collections.singletonMap("Order", orderItemList);
+    public void push(List<OrderItem> orderIteList) {
+        this.orderItemList = orderIteList;
+//        Toast.makeText(MenulistActivity.this, "pushon" + orderItemList, Toast.LENGTH_SHORT).show();
+        //    private List<OrderItem> orderItemList = new ArrayList<>();
     }
 
     private static class RetreiveTask extends AsyncTask<Void, Void, List<Menu>> {

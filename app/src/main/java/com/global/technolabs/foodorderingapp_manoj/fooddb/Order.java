@@ -16,7 +16,7 @@ public class Order {
 //    List<OrderItem> orderitems;
 
 
-//    public Order(List<Order> orderList) {
+//    public Order(List<OrderItem> orderItemList) {
 //    }
 
     public long getOrder_id() {

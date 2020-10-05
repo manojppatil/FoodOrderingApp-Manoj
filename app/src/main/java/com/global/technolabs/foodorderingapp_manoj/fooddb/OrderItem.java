@@ -3,8 +3,10 @@ package com.global.technolabs.foodorderingapp_manoj.fooddb;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = Constants.TABLE_NAME_ORDERITEM)
-public class OrderItem {
+public class OrderItem implements Serializable {
     @PrimaryKey(autoGenerate = true)
     long order_id;
 

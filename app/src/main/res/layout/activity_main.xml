@@ -20,13 +20,13 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/buttongreen"
-        android:text="Order Summary"
-        android:onClick="goto_ordersummary"
-        android:textColor="@color/whiteTextColor"
-        android:textStyle="bold" />
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/buttongreen"-->
+<!--        android:text="Order Summary"-->
+<!--        android:onClick="goto_ordersummary"-->
+<!--        android:textColor="@color/whiteTextColor"-->
+<!--        android:textStyle="bold" />-->
 
 </LinearLayout>

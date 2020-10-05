@@ -13,10 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.global.technolabs.foodorderingapp_manoj.MenulistActivity;
 import com.global.technolabs.foodorderingapp_manoj.R;
 import com.global.technolabs.foodorderingapp_manoj.fooddb.Menu;
 import com.global.technolabs.foodorderingapp_manoj.fooddb.OrderItem;
-import com.global.technolabs.foodorderingapp_manoj.fooddb.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +28,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     private MenuAdapter.OnMenuItemClick onMenuItemClick;
     int minteger = 0;
     private List<OrderItem> orderItemList = new ArrayList<>();
-    String table_id;
 
-    public MenuAdapter(List<Menu> menuList, Context context, String table_id) {
+    public MenuAdapter(List<Menu> menuList, Context context) {
         layoutInflater = layoutInflater.from(context);
         this.menuList = menuList;
         this.context = context;
         this.onMenuItemClick = (MenuAdapter.OnMenuItemClick) context;
-        this.table_id = table_id;
     }
 
     @NonNull
@@ -46,7 +44,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Menu menu = menuList.get(position);
         holder.menuname.setText(menu.getMenu_name());
         holder.menuprice.setText("Rs. " + menu.getPrice());
@@ -89,16 +87,19 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
                 orderItem.setMenu_id(String.valueOf(menu.getMenu_id()));
                 orderItem.setMenu_name(menu.getMenu_name());
                 orderItem.setMenu_quantity(holder.quantitycount.getText().toString());
-                orderItem.setTable_id(table_id);
-                Log.d("Table_id", table_id + "");
+
+                int menuprice = Integer.parseInt(menu.getPrice());
+                int menuquantity = Integer.parseInt(holder.quantitycount.getText().toString());
+
+                int menutotal = menuprice * menuquantity;
+
+                orderItem.setMenu_total(String.valueOf(menutotal));
+
                 orderItemList.add(orderItem);
 
+                ((MenulistActivity) context).onMenuClick(position);
+                ((MenulistActivity) context).push(orderItemList);
 
-//                if (menuList.get(pos).getMenu_id()) {
-//                    menuList.get(pos).setSelected(false);
-//                } else {
-//                    menuList.get(pos).setSelected(true);
-//                }
             }
         });
 
@@ -111,7 +112,8 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
 
     public interface OnMenuItemClick {
         void onMenuClick(int pos);
-        void push(ArrayList<OrderItem> orderItemList);
+
+        void push(List<OrderItem> orderItemList);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
